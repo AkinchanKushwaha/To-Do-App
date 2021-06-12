@@ -8,14 +8,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.todo.R
-import com.example.todo.data.Converter
+import com.example.todo.data.models.Priority
 import com.example.todo.data.models.ToDoData
 import com.example.todo.data.viewModel.TodoViewModel
 import kotlinx.android.synthetic.main.fragment_add.*
 
 class AddFragment : Fragment() {
 
-    private val mToDoViewModel: TodoViewModel by viewModels()
+
+    private val mTodoViewModel: TodoViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,17 +53,24 @@ class AddFragment : Fragment() {
 
         if (validation) {
             // Insert Data to DB
-            val newData = ToDoData(0, mTitle, Converter().toPriority(mPriority), mDescription)
+            val newData = ToDoData(0, mTitle, parsePriority(mPriority), mDescription)
 
-            mToDoViewModel.insertData(newData)
+            mTodoViewModel.insertData(newData)
             Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
         } else {
             Toast.makeText(requireContext(), "Please fill out all fields!", Toast.LENGTH_SHORT)
                 .show()
         }
+    }
 
-
+    private fun parsePriority(priority: String): Priority {
+        return when (priority) {
+            "High Priority" -> Priority.HIGH
+            "Medium Priority" -> Priority.MEDIUM
+            "Low Priority" -> Priority.LOW
+            else -> Priority.LOW
+        }
     }
 
     private fun verifyData(title: String, description: String): Boolean {
