@@ -11,6 +11,7 @@ import com.example.todo.data.models.ToDoData
 import com.example.todo.data.viewModel.TodoViewModel
 import com.example.todo.fragments.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_add.*
+import kotlinx.android.synthetic.main.fragment_add.view.*
 
 class AddFragment : Fragment() {
 
@@ -28,6 +29,7 @@ class AddFragment : Fragment() {
         // Set Menu
         setHasOptionsMenu(true)
 
+        view.priorities_spinner.onItemSelectedListener = mSharedViewModel.listener
 
         return view
 
