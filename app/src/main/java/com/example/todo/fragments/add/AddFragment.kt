@@ -1,22 +1,22 @@
 package com.example.todo.fragments.add
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.todo.R
-import com.example.todo.data.models.Priority
 import com.example.todo.data.models.ToDoData
 import com.example.todo.data.viewModel.TodoViewModel
+import com.example.todo.fragments.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_add.*
 
 class AddFragment : Fragment() {
 
 
     private val mTodoViewModel: TodoViewModel by viewModels()
+    private val mSharedViewModel: SharedViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,11 +49,12 @@ class AddFragment : Fragment() {
         val mPriority = priorities_spinner.selectedItem.toString()
         val mDescription = description_et.text.toString()
 
-        val validation = verifyData(mTitle, mDescription)
+        val validation = mSharedViewModel.verifyData(mTitle, mDescription)
 
         if (validation) {
             // Insert Data to DB
-            val newData = ToDoData(0, mTitle, parsePriority(mPriority), mDescription)
+            val newData =
+                ToDoData(0, mTitle, mSharedViewModel.parsePriority(mPriority), mDescription)
 
             mTodoViewModel.insertData(newData)
             Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_SHORT).show()
@@ -62,21 +63,6 @@ class AddFragment : Fragment() {
             Toast.makeText(requireContext(), "Please fill out all fields!", Toast.LENGTH_SHORT)
                 .show()
         }
-    }
-
-    private fun parsePriority(priority: String): Priority {
-        return when (priority) {
-            "High Priority" -> Priority.HIGH
-            "Medium Priority" -> Priority.MEDIUM
-            "Low Priority" -> Priority.LOW
-            else -> Priority.LOW
-        }
-    }
-
-    private fun verifyData(title: String, description: String): Boolean {
-        return if (TextUtils.isEmpty(title) || TextUtils.isEmpty(description)) {
-            false
-        } else !(title.isEmpty() || description.isEmpty())
     }
 
 
