@@ -15,7 +15,7 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
     private val toDoDao = TodoDatabase.getDataBase(application).todoDao()
     private val repository: TodoRepository
 
-    private val getAllData: LiveData<List<ToDoData>>
+    val getAllData: LiveData<List<ToDoData>>
 
     init {
         repository = TodoRepository(toDoDao)
