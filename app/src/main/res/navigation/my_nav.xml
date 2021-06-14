@@ -40,11 +40,14 @@
         android:id="@+id/updateFragment"
         android:name="com.example.todo.fragments.update.UpdateFragment"
         android:label="Update"
-        tools:layout="@layout/fragment_update" >
+        tools:layout="@layout/fragment_update">
         <action
             android:id="@+id/action_updateFragment_to_listFragment"
             app:destination="@id/listFragment"
             app:enterAnim="@anim/from_left"
             app:exitAnim="@anim/to_right" />
+        <argument
+            android:name="currentItem"
+            app:argType="com.example.todo.data.models.ToDoData" />
     </fragment>
 </navigation>
