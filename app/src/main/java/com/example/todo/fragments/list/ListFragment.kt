@@ -10,10 +10,12 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
+import com.example.todo.data.models.ToDoData
 import com.example.todo.data.viewModel.TodoViewModel
 import com.example.todo.databinding.FragmentListBinding
 import com.example.todo.fragments.SharedViewModel
 import com.example.todo.fragments.list.adapter.ListAdapter
+import com.google.android.material.snackbar.Snackbar
 
 
 class ListFragment : Fragment() {
@@ -88,17 +90,25 @@ class ListFragment : Fragment() {
     private fun swipeToDelete(recyclerView: RecyclerView) {
         val swipeToDeleteCallback = object : SwipeToDelete() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val itemToDelete = adapter.dataList[viewHolder.adapterPosition]
-                mTodoViewModel.deleteItem(itemToDelete)
-                Toast.makeText(
-                    requireContext(),
-                    "Successfully Removed: '${itemToDelete.title}'",
-                    Toast.LENGTH_SHORT
-                ).show()
+                val deletedItem = adapter.dataList[viewHolder.adapterPosition]
+                // Delete Item
+                mTodoViewModel.deleteItem(deletedItem)
+                adapter.notifyDataSetChanged()
+
+                restoreDeletedData(viewHolder.itemView, deletedItem, viewHolder.adapterPosition)
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
         itemTouchHelper.attachToRecyclerView(recyclerView)
+    }
+
+    private fun restoreDeletedData(view: View, deletedItem: ToDoData, position: Int) {
+        val snackBar = Snackbar.make(view, "Deleted '${deletedItem.title}'", Snackbar.LENGTH_LONG)
+        snackBar.setAction("Undo") {
+            mTodoViewModel.insertData(deletedItem)
+            adapter.notifyDataSetChanged()
+        }
+        snackBar.show()
     }
 
     override fun onDestroy() {
