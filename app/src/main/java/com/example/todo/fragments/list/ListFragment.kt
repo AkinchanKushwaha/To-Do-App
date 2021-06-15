@@ -6,59 +6,44 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todo.R
 import com.example.todo.data.viewModel.TodoViewModel
+import com.example.todo.databinding.FragmentListBinding
 import com.example.todo.fragments.SharedViewModel
-import kotlinx.android.synthetic.main.fragment_list.view.*
 
 
 class ListFragment : Fragment() {
     private val adapter: ListAdapter by lazy { ListAdapter() }
     private val mTodoViewModel: TodoViewModel by viewModels()
     private val mShareViewModel: SharedViewModel by viewModels()
+    private var _binding: FragmentListBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_list, container, false)
-
-        val recyclerView = view.recyclerView
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+    ): View {
+        // Data binding
+        _binding = FragmentListBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+        binding.mSharedViewModel = mShareViewModel
 
         mTodoViewModel.getAllData.observe(viewLifecycleOwner, { data ->
             mShareViewModel.checkIfDatabaseIsEmpty(data)
             adapter.setData(data)
         })
 
-        view.floatingActionButton.setOnClickListener {
-            findNavController().navigate(R.id.action_listFragment_to_addFragment)
-        }
-
-        mShareViewModel.emptyDatabase.observe(viewLifecycleOwner, {
-            showEmptyDatabaseViews(it)
-        })
-
 
         // Set Menu
         setHasOptionsMenu(true)
 
-        return view
+        // Setup Recycler View
+        setupRecyclerview()
+
+        return binding.root
     }
 
-    private fun showEmptyDatabaseViews(emptyDatabase: Boolean) {
-        if (emptyDatabase) {
-            view?.no_data_imageView?.visibility = View.VISIBLE
-            view?.no_data_textView?.visibility = View.VISIBLE
-        } else {
-            view?.no_data_imageView?.visibility = View.INVISIBLE
-            view?.no_data_textView?.visibility = View.INVISIBLE
-        }
-    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.list_fragment_menu, menu)
@@ -85,5 +70,16 @@ class ListFragment : Fragment() {
         builder.setTitle("Delete Everything ?")
         builder.setMessage("Are you sure you want to remove everything?")
         builder.create().show()
+    }
+
+    private fun setupRecyclerview() {
+        val recyclerView = binding.recyclerView
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
