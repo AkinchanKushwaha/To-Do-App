@@ -12,6 +12,7 @@
     <string name="add">Add</string>
     <string name="save">Save</string>
     <string name="delete">Delete</string>
+    <string name="swipe_left_on_card_to_delete_it">Swipe left on card to delete it!</string>
 
     <string-array name="priorities">
         <item>High Priority</item>
