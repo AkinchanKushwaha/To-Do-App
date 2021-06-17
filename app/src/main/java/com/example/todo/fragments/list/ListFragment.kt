@@ -16,6 +16,7 @@ import com.example.todo.data.viewModel.TodoViewModel
 import com.example.todo.databinding.FragmentListBinding
 import com.example.todo.fragments.SharedViewModel
 import com.example.todo.fragments.list.adapter.ListAdapter
+import com.example.todo.fragments.utils.hideKeyboard
 import com.google.android.material.snackbar.Snackbar
 import jp.wasabeef.recyclerview.animators.LandingAnimator
 
@@ -47,6 +48,9 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
 
         // Setup Recycler View
         setupRecyclerview()
+
+        // Hide soft keyboard
+        hideKeyboard(requireActivity())
 
 
         return binding.root
