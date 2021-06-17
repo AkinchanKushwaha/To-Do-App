@@ -1,6 +1,7 @@
 package com.example.todo.fragments
 
 import android.view.View
+import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
@@ -58,6 +59,15 @@ class BindingAdapters {
                 view.findNavController().navigate(action)
             }
 
+        }
+
+        @BindingAdapter("android:showSwipeToLeftHint")
+        @JvmStatic
+        fun showSwipeToLeftHint(view: TextView, emptyDatabase: MutableLiveData<Boolean>) {
+            when (emptyDatabase.value) {
+                true -> view.visibility = View.INVISIBLE
+                false -> view.visibility = View.VISIBLE
+            }
         }
     }
 }
