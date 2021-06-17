@@ -8,17 +8,17 @@
         app:showAsAction="ifRoom"
         app:actionViewClass="android.widget.SearchView" />
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="none">
         <item
             android:id="@+id/menu_sortBy"
             android:title="@string/sort_by">
             <menu>
                 <item
                     android:id="@+id/menu_priority_high"
-                    android:title="@string/priority_high"/>
+                    android:title="@string/priority_high" />
                 <item
                     android:id="@+id/menu_priority_low"
-                    android:title="@string/priority_low"/>
+                    android:title="@string/priority_low" />
             </menu>
         </item>
     </group>
