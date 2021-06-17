@@ -63,8 +63,14 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.menu_delete_all) {
-            confirmRemoval()
+        when (item.itemId) {
+            R.id.menu_delete_all -> confirmRemoval()
+            R.id.menu_priority_high -> mTodoViewModel.sortByHighPriority.observe(this, {
+                adapter.setData(it)
+            })
+            R.id.menu_priority_low -> mTodoViewModel.sortByLowPriority.observe(this, {
+                adapter.setData(it)
+            })
         }
         return super.onOptionsItemSelected(item)
     }
@@ -131,14 +137,14 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
                 mTodoViewModel.deleteItem(deletedItem)
                 adapter.notifyDataSetChanged()
 
-                restoreDeletedData(viewHolder.itemView, deletedItem, viewHolder.adapterPosition)
+                restoreDeletedData(viewHolder.itemView, deletedItem)
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
         itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
-    private fun restoreDeletedData(view: View, deletedItem: ToDoData, position: Int) {
+    private fun restoreDeletedData(view: View, deletedItem: ToDoData) {
         val snackBar = Snackbar.make(view, "Deleted '${deletedItem.title}'", Snackbar.LENGTH_LONG)
         snackBar.setAction("Undo") {
             mTodoViewModel.insertData(deletedItem)
