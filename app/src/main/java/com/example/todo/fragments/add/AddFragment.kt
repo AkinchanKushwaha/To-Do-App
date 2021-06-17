@@ -9,9 +9,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.todo.R
 import com.example.todo.data.models.ToDoData
 import com.example.todo.data.viewModel.TodoViewModel
+import com.example.todo.databinding.FragmentAddBinding
 import com.example.todo.fragments.SharedViewModel
-import kotlinx.android.synthetic.main.fragment_add.*
-import kotlinx.android.synthetic.main.fragment_add.view.*
 
 class AddFragment : Fragment() {
 
@@ -19,19 +18,23 @@ class AddFragment : Fragment() {
     private val mTodoViewModel: TodoViewModel by viewModels()
     private val mSharedViewModel: SharedViewModel by viewModels()
 
+    private var _binding: FragmentAddBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_add, container, false)
+    ): View {
+
+        _binding = FragmentAddBinding.inflate(layoutInflater, container, false)
+
 
         // Set Menu
         setHasOptionsMenu(true)
 
-        view.priorities_spinner.onItemSelectedListener = mSharedViewModel.listener
+        binding.prioritiesSpinner.onItemSelectedListener = mSharedViewModel.listener
 
-        return view
+        return binding.root
 
     }
 
@@ -47,9 +50,9 @@ class AddFragment : Fragment() {
     }
 
     private fun insertDataToDb() {
-        val mTitle = title_et.text.toString()
-        val mPriority = priorities_spinner.selectedItem.toString()
-        val mDescription = description_et.text.toString()
+        val mTitle = binding.titleEt.text.toString()
+        val mPriority = binding.prioritiesSpinner.selectedItem.toString()
+        val mDescription = binding.descriptionEt.toString()
 
         val validation = mSharedViewModel.verifyData(mTitle, mDescription)
 
@@ -65,6 +68,11 @@ class AddFragment : Fragment() {
             Toast.makeText(requireContext(), "Please fill out all fields!", Toast.LENGTH_SHORT)
                 .show()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 

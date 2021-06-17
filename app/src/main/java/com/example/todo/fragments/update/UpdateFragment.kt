@@ -13,7 +13,6 @@ import com.example.todo.data.models.ToDoData
 import com.example.todo.data.viewModel.TodoViewModel
 import com.example.todo.databinding.FragmentUpdateBinding
 import com.example.todo.fragments.SharedViewModel
-import kotlinx.android.synthetic.main.fragment_update.*
 
 
 class UpdateFragment : Fragment() {
@@ -55,9 +54,9 @@ class UpdateFragment : Fragment() {
     }
 
     private fun updateItem() {
-        val title = current_title_et.text.toString()
-        val description = current_description_et.text.toString()
-        val getPriority = current_priorities_spinner.selectedItem.toString()
+        val title = binding.currentTitleEt.text.toString()
+        val description = binding.currentDescriptionEt.text.toString()
+        val getPriority = binding.currentPrioritiesSpinner.selectedItem.toString()
 
         val validation = mSharedViewModel.verifyData(title, description)
 
