@@ -11,7 +11,7 @@ class TodoRepository(private val toDoDao: ToDoDao) {
     val sortByLowPriority: LiveData<List<ToDoData>> = toDoDao.sortByLowPriority()
 
     suspend fun insertData(toDoData: ToDoData) {
-        toDoDao.insetData(toDoData)
+        toDoDao.insertData(toDoData)
     }
 
     suspend fun updateData(toDoData: ToDoData) {

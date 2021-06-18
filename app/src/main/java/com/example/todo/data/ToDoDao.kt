@@ -11,7 +11,7 @@ interface ToDoDao {
     fun getAllData(): LiveData<List<ToDoData>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insetData(toDoData: ToDoData)
+    suspend fun insertData(toDoData: ToDoData)
 
     @Update
     suspend fun updateData(toDoData: ToDoData)
