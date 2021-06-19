@@ -41,6 +41,9 @@ class ToDoDaoTest {
         database.close()
     }
 
+    /**
+     * insertTodoItem test passes when the list contains the todoItem that was added in the list.
+     */
     @Test
     fun insertTodoItem() = runBlockingTest {
         val todoItem = ToDoData(1, "title", Priority.LOW, "description")
@@ -49,5 +52,55 @@ class ToDoDaoTest {
         val todoList = dao.getAllData().getOrAwaitValue()
 
         assertThat(todoList).contains(todoItem)
+    }
+
+    /**
+     * deleteTodoItem test passes when the list doesn't contain the todoItem that was deleted from
+     * the list.
+     */
+    @Test
+    fun deleteTodoItem() = runBlockingTest {
+        val todoItem = ToDoData(1, "title", Priority.LOW, "description")
+        dao.insertData(todoItem)
+        dao.deleteItem(todoItem)
+
+        val todoList = dao.getAllData().getOrAwaitValue()
+
+        assertThat(todoList).doesNotContain(todoItem)
+    }
+
+    /**
+     * deleteAllItems test passes when todoList is empty after adding multiple todoItems in list.
+     */
+    @Test
+    fun deleteAllItems() = runBlockingTest {
+        val todoItem1 = ToDoData(1, "title", Priority.LOW, "description")
+        val todoItem2 = ToDoData(2, "title", Priority.LOW, "description")
+
+        dao.insertData(todoItem1)
+        dao.insertData(todoItem2)
+        dao.deleteAll()
+
+        val todoList = dao.getAllData().getOrAwaitValue()
+
+        assertThat(todoList).isEmpty()
+    }
+
+    /**
+     * updateItem passes when todoList contains the todoItemUpdated and it doesn't contain the
+     * todoItem i.e. item before it was updated.
+     */
+    @Test
+    fun updateItem() = runBlockingTest {
+        val todoItem = ToDoData(1, "title", Priority.LOW, "description")
+        val todoItemUpdated = ToDoData(1, "updatedTitle", Priority.HIGH, "UpdatedDescription")
+
+        dao.insertData(todoItem)
+        dao.updateData(todoItemUpdated)
+
+        val todoList = dao.getAllData().getOrAwaitValue()
+
+        assertThat(todoList).containsExactly(todoItemUpdated)
+        assertThat(todoList).doesNotContain(todoItem)
     }
 }
