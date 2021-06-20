@@ -35,6 +35,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_et" />
 
+    <LinearLayout
+        android:id="@+id/dueDateAndTime_ll"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:orientation="horizontal"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/priorities_spinner">
+
+        <TextView
+            android:id="@+id/dueDateAndTime_tv"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:hint="@string/due_date_and_time"
+            android:textColor="@color/lightGray"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/dateAndTimePicker_iv"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="2dp"
+            android:src="@drawable/ic_date_and_time" />
+    </LinearLayout>
+
     <EditText
         android:id="@+id/description_et"
         android:layout_width="0dp"
@@ -52,5 +84,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/priorities_spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/dueDateAndTime_ll" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
