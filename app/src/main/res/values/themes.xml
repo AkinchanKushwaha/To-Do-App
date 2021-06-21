@@ -13,4 +13,12 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="item_background">
+        <item name="android:background">@drawable/item_background_day</item>
+    </style>
+
+    <style name="text_normal">
+        <item name="android:textColor">@color/darkGray</item>
+    </style>
 </resources>
