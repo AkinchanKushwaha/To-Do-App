@@ -55,7 +55,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:hint="@string/due_date_and_time"
-            android:textColor="@color/lightGray"
+            android:textColor="@color/darkGray"
             android:textSize="18sp" />
 
         <ImageView

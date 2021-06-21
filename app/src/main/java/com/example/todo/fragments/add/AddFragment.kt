@@ -1,6 +1,9 @@
 package com.example.todo.fragments.add
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
+import android.util.Log.d
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -11,6 +14,7 @@ import com.example.todo.data.models.ToDoData
 import com.example.todo.data.viewModel.TodoViewModel
 import com.example.todo.databinding.FragmentAddBinding
 import com.example.todo.fragments.SharedViewModel
+import java.util.*
 
 class AddFragment : Fragment() {
 
@@ -20,6 +24,8 @@ class AddFragment : Fragment() {
 
     private var _binding: FragmentAddBinding? = null
     private val binding get() = _binding!!
+
+    private var mDueTimeAndDate: Long = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +39,11 @@ class AddFragment : Fragment() {
         setHasOptionsMenu(true)
 
         binding.prioritiesSpinner.onItemSelectedListener = mSharedViewModel.listener
+        binding.dateAndTimePickerIv.setOnClickListener {
+            pickDateTime()
+        }
+
+        binding.dueDateAndTimeTv.text = mDueTimeAndDate.toString()
 
         return binding.root
 
@@ -55,19 +66,62 @@ class AddFragment : Fragment() {
         val mDescription = binding.descriptionEt.text.toString()
 
         val validation = mSharedViewModel.verifyData(mTitle, mDescription)
+        val validationOfDateAndTime = mSharedViewModel.verifyDateAndTime(mDueTimeAndDate)
 
-        if (validation) {
+        if (validation && validationOfDateAndTime) {
             // Insert Data to DB
             val newData =
-                ToDoData(0, mTitle, mSharedViewModel.parsePriority(mPriority), mDescription)
+                ToDoData(
+                    0,
+                    mTitle,
+                    mSharedViewModel.parsePriority(mPriority),
+                    mDescription,
+                    mDueTimeAndDate
+                )
 
             mTodoViewModel.insertData(newData)
             Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
         } else {
-            Toast.makeText(requireContext(), "Please fill out all fields!", Toast.LENGTH_SHORT)
-                .show()
+            if (!validation) {
+                Toast.makeText(requireContext(), "Please fill out all fields!", Toast.LENGTH_SHORT)
+                    .show()
+            } else if (!validationOfDateAndTime) {
+                Toast.makeText(requireContext(), "Please choose due date!", Toast.LENGTH_SHORT)
+                    .show()
+            }
+
         }
+    }
+
+    private fun pickDateTime() {
+        val currentDateTime = Calendar.getInstance()
+        val startYear = currentDateTime.get(Calendar.YEAR)
+        val startMonth = currentDateTime.get(Calendar.MONTH)
+        val startDay = currentDateTime.get(Calendar.DAY_OF_MONTH)
+        val startHour = currentDateTime.get(Calendar.HOUR_OF_DAY)
+        val startMinute = currentDateTime.get(Calendar.MINUTE)
+
+        DatePickerDialog(requireContext(), { _, year, month, day ->
+            TimePickerDialog(
+                requireContext(),
+                { _, hour, minute ->
+                    val pickedDateTime = Calendar.getInstance()
+                    pickedDateTime.set(year, month, day, hour, minute)
+                    mDueTimeAndDate = pickedDateTime.timeInMillis
+                    d("Add Fragment", mDueTimeAndDate.toString())
+                    setupDateAndTime(pickedDateTime)
+                },
+                startHour,
+                startMinute,
+                false
+            ).show()
+        }, startYear, startMonth, startDay).show()
+
+    }
+
+    private fun setupDateAndTime(calendar: Calendar) {
+        binding.dueDateAndTimeTv.text = calendar.timeInMillis.toString()
     }
 
     override fun onDestroy() {

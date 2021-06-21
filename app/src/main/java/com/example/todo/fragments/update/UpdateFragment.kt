@@ -65,7 +65,9 @@ class UpdateFragment : Fragment() {
                 args.currentItem.id,
                 title,
                 mSharedViewModel.parsePriority(getPriority),
-                description
+                description,
+                // TODO: Insert Updated Time And date
+                0L
             )
             mTodoViewModel.updateData(updatedItem)
             Toast.makeText(requireContext(), "Successfully updated!", Toast.LENGTH_SHORT).show()

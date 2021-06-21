@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.todo.R
 import com.example.todo.data.models.Priority
 import com.example.todo.data.models.ToDoData
+import java.util.*
 
 class SharedViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -70,6 +71,13 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
             Priority.MEDIUM -> 1
             Priority.LOW -> 2
         }
+    }
+
+    fun verifyDateAndTime(mDueTimeAndDate: Long): Boolean {
+        val currentTime = Calendar.getInstance().timeInMillis / 100
+        val roundedOffDateAndTime = mDueTimeAndDate / 100
+
+        return !(mDueTimeAndDate == 0.toLong() || roundedOffDateAndTime == currentTime)
     }
 
 

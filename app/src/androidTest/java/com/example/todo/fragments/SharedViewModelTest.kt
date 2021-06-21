@@ -5,6 +5,7 @@ import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.assertThat
 import org.junit.Before
 import org.junit.Test
+import java.util.*
 
 
 class SharedViewModelTest {
@@ -34,6 +35,27 @@ class SharedViewModelTest {
                 "",
             )
         assertThat(result).isFalse()
+    }
+
+    @Test
+    fun dueDateAndTimeIsEqualToCurrentTime_returnsFalse() {
+        val currentTime = Calendar.getInstance().timeInMillis
+        val result = mSharedViewModel.verifyDateAndTime(currentTime)
+        assertThat(result).isFalse()
+    }
+
+    @Test
+    fun dueDateAndTimeIsEqualToZero_returnsFalse() {
+        val result = mSharedViewModel.verifyDateAndTime(0.toLong())
+        assertThat(result).isFalse()
+    }
+
+    @Test
+    fun dueDateAndTimeIsCorrect_returnsTrue() {
+        // Adding 10 hours in current time
+        val dueTime = Calendar.getInstance().timeInMillis + 36000000
+        val result = mSharedViewModel.verifyDateAndTime(dueTime)
+        assertThat(result).isTrue()
     }
 
 }
