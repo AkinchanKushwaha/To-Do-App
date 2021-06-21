@@ -25,5 +25,6 @@ class ToDoDiffUtil(
                 && oldList[oldItemPosition].title == newList[newItemPosition].title
                 && oldList[oldItemPosition].description == newList[newItemPosition].description
                 && oldList[oldItemPosition].priority == newList[newItemPosition].priority
+                && oldList[oldItemPosition].dueTime == newList[newItemPosition].dueTime
     }
 }

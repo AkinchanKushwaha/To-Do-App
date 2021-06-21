@@ -1,6 +1,8 @@
 package com.example.todo.fragments.update
 
 import android.app.AlertDialog
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -13,6 +15,7 @@ import com.example.todo.data.models.ToDoData
 import com.example.todo.data.viewModel.TodoViewModel
 import com.example.todo.databinding.FragmentUpdateBinding
 import com.example.todo.fragments.SharedViewModel
+import java.util.*
 
 
 class UpdateFragment : Fragment() {
@@ -22,6 +25,8 @@ class UpdateFragment : Fragment() {
     private val mTodoViewModel: TodoViewModel by viewModels()
     private var _binding: FragmentUpdateBinding? = null
     private val binding get() = _binding!!
+    private var mCurrentDueDateAndTime: Long = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,10 +37,18 @@ class UpdateFragment : Fragment() {
         // Set Menu
         setHasOptionsMenu(true)
 
+        mCurrentDueDateAndTime = args.currentItem.dueTime
+
         binding.currentTitleEt.setText(args.currentItem.title)
         binding.currentDescriptionEt.setText(args.currentItem.description)
         binding.currentPrioritiesSpinner.setSelection(mSharedViewModel.parsePriorityToInt(args.currentItem.priority))
         binding.currentPrioritiesSpinner.onItemSelectedListener = mSharedViewModel.listener
+        // TODO: Change long time to proper date and time string.
+        binding.currentDueDateAndTimeTv.text = mCurrentDueDateAndTime.toString()
+
+        binding.currentDateAndTimePickerIv.setOnClickListener {
+            updateDateTime(args.currentItem.dueTime)
+        }
 
         return binding.root
     }
@@ -66,8 +79,8 @@ class UpdateFragment : Fragment() {
                 title,
                 mSharedViewModel.parsePriority(getPriority),
                 description,
-                // TODO: Insert Updated Time And date
-                0L
+                // TODO make a validation function for updated date and time.
+                mCurrentDueDateAndTime
             )
             mTodoViewModel.updateData(updatedItem)
             Toast.makeText(requireContext(), "Successfully updated!", Toast.LENGTH_SHORT).show()
@@ -77,6 +90,33 @@ class UpdateFragment : Fragment() {
             Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_SHORT)
                 .show()
         }
+    }
+
+    private fun updateDateTime(currentDueTime: Long) {
+        val currentDateTime = Calendar.getInstance()
+        currentDateTime.timeInMillis = currentDueTime
+
+        val startYear = currentDateTime.get(Calendar.YEAR)
+        val startMonth = currentDateTime.get(Calendar.MONTH)
+        val startDay = currentDateTime.get(Calendar.DAY_OF_MONTH)
+        val startHour = currentDateTime.get(Calendar.HOUR_OF_DAY)
+        val startMinute = currentDateTime.get(Calendar.MINUTE)
+
+
+        DatePickerDialog(requireContext(), { _, year, month, day ->
+            TimePickerDialog(
+                requireContext(),
+                { _, hour, minute ->
+                    val pickedDateTime = Calendar.getInstance()
+                    pickedDateTime.set(year, month, day, hour, minute)
+                    mCurrentDueDateAndTime = pickedDateTime.timeInMillis
+                },
+                startHour,
+                startMinute,
+                false
+            ).show()
+        }, startYear, startMonth, startDay).show()
+
     }
 
     // Show AlertDialog to confirm item removal

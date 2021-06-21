@@ -3,7 +3,6 @@ package com.example.todo.fragments.add
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.util.Log.d
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -109,7 +108,6 @@ class AddFragment : Fragment() {
                     val pickedDateTime = Calendar.getInstance()
                     pickedDateTime.set(year, month, day, hour, minute)
                     mDueTimeAndDate = pickedDateTime.timeInMillis
-                    d("Add Fragment", mDueTimeAndDate.toString())
                     setupDateAndTime(pickedDateTime)
                 },
                 startHour,
