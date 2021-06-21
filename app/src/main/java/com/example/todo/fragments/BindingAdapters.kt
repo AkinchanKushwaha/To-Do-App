@@ -69,5 +69,11 @@ class BindingAdapters {
                 false -> view.visibility = View.VISIBLE
             }
         }
+
+        @BindingAdapter("android:longToText")
+        @JvmStatic
+        fun longToText(view: TextView, currentItem: ToDoData) {
+            view.text = currentItem.dueTime.toString()
+        }
     }
 }

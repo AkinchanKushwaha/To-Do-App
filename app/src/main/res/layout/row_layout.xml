@@ -18,7 +18,7 @@
             android:id="@+id/row_background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/item_background"
+            style="@style/item_background"
             android:sendDataToUpdateFragment="@{todoData}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +31,6 @@
                 android:layout_height="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/red"
                 android:parsePriorityColor="@{todoData.priority}"
                 app:cardCornerRadius="100dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -46,12 +45,30 @@
                 android:layout_marginEnd="16dp"
                 android:maxLength="20"
                 android:text="@{todoData.title}"
-                android:textColor="@color/darkGray"
+                style="@style/text_normal"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/priority_indicator"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/dueDateAndTime_txt"
+                style="@style/text_normal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:longToText="@{todoData}"
+                android:maxLength="300"
+                android:maxLines="10"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/title_text"
+                app:layout_constraintTop_toBottomOf="@+id/title_text"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/description_txt"
@@ -63,12 +80,12 @@
                 android:maxLength="300"
                 android:maxLines="10"
                 android:text="@{todoData.description}"
-                android:textColor="@color/darkGray"
+                style="@style/text_normal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/title_text"
-                app:layout_constraintTop_toBottomOf="@+id/title_text"
+                app:layout_constraintTop_toBottomOf="@+id/dueDateAndTime_txt"
                 app:layout_constraintVertical_bias="0.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
