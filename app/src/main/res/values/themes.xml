@@ -3,7 +3,7 @@
     <style name="Theme.ToDo" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/colorPrimary</item>
@@ -14,11 +14,29 @@
         <!-- Customize your theme here. -->
     </style>
 
+
     <style name="item_background">
         <item name="android:background">@drawable/item_background_day</item>
     </style>
 
+    <!--............................TEXT STYLE............................-->
     <style name="text_normal">
+        <item name="android:textColor">@color/grayAccent</item>
+    </style>
+
+    <style name="text_bold">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/darkGray</item>
     </style>
+    <!--.................................................................-->
+
+
+    <!--............................COLORS............................-->
+    <color name="background_editText">@color/white</color>
+    <color name="red">#FF4646</color>
+    <color name="yellow">#FFC114</color>
+    <color name="green">#00c980</color>
+    <!--.................................................................-->
+
 </resources>

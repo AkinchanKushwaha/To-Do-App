@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="todoData"
             type="com.example.todo.data.models.ToDoData" />
@@ -19,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/item_background"
+
             android:sendDataToUpdateFragment="@{todoData}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -45,9 +45,7 @@
                 android:layout_marginEnd="16dp"
                 android:maxLength="20"
                 android:text="@{todoData.title}"
-                style="@style/text_normal"
-                android:textSize="20sp"
-                android:textStyle="bold"
+                style="@style/text_bold"
                 app:layout_constraintEnd_toStartOf="@+id/priority_indicator"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

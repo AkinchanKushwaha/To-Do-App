@@ -14,11 +14,15 @@
     <string name="delete">Delete</string>
     <string name="swipe_left_on_card_to_delete_it">Swipe left on card to delete it!</string>
     <string name="due_date_and_time">Due Date and Time</string>
+    <string name="add_new_task_to_list">Add new task to list</string>
+    <string name="no_data_available">No data available</string>
+    <string name="update_current_due_date_and_time">Update current due date and time</string>
+    <string name="select_due_date_and_time">Select due date and time.</string>
 
     <string-array name="priorities">
         <item>High Priority</item>
         <item>Medium Priority</item>
         <item>Low Priority</item>
     </string-array>
-    
+
 </resources>

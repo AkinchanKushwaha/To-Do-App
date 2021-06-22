@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="mSharedViewModel"
             type="com.example.todo.fragments.SharedViewModel" />
@@ -36,6 +35,7 @@
             android:layout_marginBottom="24dp"
             android:clickable="true"
             android:focusable="true"
+            android:contentDescription="@string/add_new_task_to_list"
             android:navigateToAddFragment="@{true}"
             android:src="@drawable/ic_add"
             android:tint="@color/white"
@@ -49,6 +49,7 @@
             android:emptyDatabase="@{mSharedViewModel.emptyDatabase}"
             android:src="@drawable/ic_no_data"
             android:visibility="invisible"
+            android:contentDescription="@string/no_data_available"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +75,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            android:alpha="0.4"
             android:gravity="center"
             android:showSwipeToLeftHint="@{mSharedViewModel.emptyDatabase}"
             android:text="@string/swipe_left_on_card_to_delete_it"
