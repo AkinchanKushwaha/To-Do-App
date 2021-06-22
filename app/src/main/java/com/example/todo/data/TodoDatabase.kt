@@ -5,9 +5,14 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.todo.data.models.Migration
 import com.example.todo.data.models.ToDoData
 
-@Database(entities = [ToDoData::class], version = 2, exportSchema = false)
+@Database(
+    version = 2,
+    entities = [ToDoData::class],
+    exportSchema = true
+)
 @TypeConverters(Converter::class)
 abstract class TodoDatabase : RoomDatabase() {
     abstract fun todoDao(): ToDoDao
@@ -27,7 +32,8 @@ abstract class TodoDatabase : RoomDatabase() {
                     context.applicationContext,
                     TodoDatabase::class.java,
                     "todo_database"
-                ).build()
+                ).addMigrations(Migration().MIGRATION_1_2)
+                    .build()
                 INSTANCE = instance
                 return instance
             }
