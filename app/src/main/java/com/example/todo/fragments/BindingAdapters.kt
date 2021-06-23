@@ -12,6 +12,7 @@ import com.example.todo.data.models.Priority
 import com.example.todo.data.models.ToDoData
 import com.example.todo.fragments.list.ListFragmentDirections
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.util.*
 
 class BindingAdapters {
     companion object {
@@ -73,7 +74,15 @@ class BindingAdapters {
         @BindingAdapter("android:longToText")
         @JvmStatic
         fun longToText(view: TextView, currentItem: ToDoData) {
-            view.text = currentItem.dueTime.toString()
+            val calendar = Calendar.getInstance()
+            calendar.timeInMillis = currentItem.dueTime
+
+            val mYear = calendar[Calendar.YEAR]
+            val mMonth = calendar[Calendar.MONTH]
+            val mDay = calendar[Calendar.DAY_OF_MONTH]
+            val mTimeHour = calendar[Calendar.HOUR]
+            val mTimeMinute = calendar[Calendar.MINUTE]
+            view.text = "$mDay/$mMonth/$mYear, $mTimeHour:$mTimeMinute"
         }
     }
 }

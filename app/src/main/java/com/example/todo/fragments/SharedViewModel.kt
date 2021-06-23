@@ -80,5 +80,18 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         return !(mDueTimeAndDate == 0.toLong() || roundedOffDateAndTime == currentTime)
     }
 
+    fun timeInMillisToString(timeInMillis: Long): String {
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = timeInMillis
+
+        val mYear = calendar[Calendar.YEAR]
+        val mMonth = calendar[Calendar.MONTH]
+        val mDay = calendar[Calendar.DAY_OF_MONTH]
+        val mTimeHour = calendar[Calendar.HOUR]
+        val mTimeMinute = calendar[Calendar.MINUTE]
+
+        return "$mDay/$mMonth/$mYear, $mTimeHour:$mTimeMinute"
+    }
+
 
 }

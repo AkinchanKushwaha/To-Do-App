@@ -37,15 +37,13 @@ class UpdateFragment : Fragment() {
         // Set Menu
         setHasOptionsMenu(true)
 
-        mCurrentDueDateAndTime = args.currentItem.dueTime
 
         binding.currentTitleEt.setText(args.currentItem.title)
         binding.currentDescriptionEt.setText(args.currentItem.description)
         binding.currentPrioritiesSpinner.setSelection(mSharedViewModel.parsePriorityToInt(args.currentItem.priority))
         binding.currentPrioritiesSpinner.onItemSelectedListener = mSharedViewModel.listener
-        // TODO: Change long time to proper date and time string.
-        binding.currentDueDateAndTimeTv.text = mCurrentDueDateAndTime.toString()
-
+        binding.currentDueDateAndTimeTv.text =
+            mSharedViewModel.timeInMillisToString(args.currentItem.dueTime)
         binding.currentDateAndTimePickerIv.setOnClickListener {
             updateDateTime(args.currentItem.dueTime)
         }
@@ -110,6 +108,8 @@ class UpdateFragment : Fragment() {
                     val pickedDateTime = Calendar.getInstance()
                     pickedDateTime.set(year, month, day, hour, minute)
                     mCurrentDueDateAndTime = pickedDateTime.timeInMillis
+                    binding.currentDueDateAndTimeTv.text =
+                        mSharedViewModel.timeInMillisToString(pickedDateTime.timeInMillis)
                 },
                 startHour,
                 startMinute,
@@ -141,7 +141,5 @@ class UpdateFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
-
-    // TODO Update dueTime is not working. Fix it
 
 }

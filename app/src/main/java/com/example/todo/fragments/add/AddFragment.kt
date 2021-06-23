@@ -42,7 +42,6 @@ class AddFragment : Fragment() {
             pickDateTime()
         }
 
-        binding.dueDateAndTimeTv.text = mDueTimeAndDate.toString()
 
         return binding.root
 
@@ -119,7 +118,7 @@ class AddFragment : Fragment() {
     }
 
     private fun setupDateAndTime(calendar: Calendar) {
-        binding.dueDateAndTimeTv.text = calendar.timeInMillis.toString()
+        binding.dueDateAndTimeTv.text = mSharedViewModel.timeInMillisToString(calendar.timeInMillis)
     }
 
     override fun onDestroy() {
