@@ -7,7 +7,7 @@ class Migration {
 
     val MIGRATION_1_2 = object : Migration(1, 2) {
         override fun migrate(database: SupportSQLiteDatabase) {
-            database.execSQL("CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `priority` TEXT NOT NULL, `description` TEXT NOT NULL, `dueTime` INTEGER NOT NULL)")
+            database.execSQL("CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `priority` TEXT NOT NULL, `description` TEXT NOT NULL, `dueTime` INTEGER NOT NULL, `notificationID` INTEGER NOT NULL)")
         }
     }
 

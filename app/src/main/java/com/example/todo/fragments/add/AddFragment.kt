@@ -75,7 +75,8 @@ class AddFragment : Fragment() {
                     mTitle,
                     mSharedViewModel.parsePriority(mPriority),
                     mDescription,
-                    mDueTimeAndDate
+                    mDueTimeAndDate,
+                    getNotificationId()
                 )
 
             mTodoViewModel.insertData(newData)
@@ -123,6 +124,12 @@ class AddFragment : Fragment() {
 
     private fun setupDateAndTime(calendar: Calendar) {
         binding.dueDateAndTimeTv.text = mSharedViewModel.timeInMillisToString(calendar.timeInMillis)
+    }
+
+
+    private fun getNotificationId(): Long {
+        // TODO: Look for other ways to generate ID
+        return Calendar.getInstance().timeInMillis
     }
 
     private fun scheduleNotification(notificationTitle: String, notificationDescription: String) {

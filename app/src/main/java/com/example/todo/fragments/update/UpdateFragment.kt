@@ -78,7 +78,8 @@ class UpdateFragment : Fragment() {
                 mSharedViewModel.parsePriority(getPriority),
                 description,
                 // TODO make a validation function for updated date and time.
-                mCurrentDueDateAndTime
+                mCurrentDueDateAndTime,
+                args.currentItem.notificationID
             )
             mTodoViewModel.updateData(updatedItem)
             Toast.makeText(requireContext(), "Successfully updated!", Toast.LENGTH_SHORT).show()

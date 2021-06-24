@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "81000bdce6ad9d5fe2010f06b00983ae",
+    "identityHash": "414bb04aa0a496e5f43bc57cd44f74c7",
     "entities": [
       {
         "tableName": "todo_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `priority` TEXT NOT NULL, `description` TEXT NOT NULL, `dueTime` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `priority` TEXT NOT NULL, `description` TEXT NOT NULL, `dueTime` INTEGER NOT NULL, `notificationID` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -37,6 +37,12 @@
             "columnName": "dueTime",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "notificationID",
+            "columnName": "notificationID",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -52,7 +58,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '81000bdce6ad9d5fe2010f06b00983ae')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '414bb04aa0a496e5f43bc57cd44f74c7')"
     ]
   }
 }
