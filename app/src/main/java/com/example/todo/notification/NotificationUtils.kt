@@ -11,6 +11,7 @@ class NotificationUtils {
 
 
     fun setNotification(
+        notificationID: Int,
         notificationTitle: String,
         notificationDescription: String,
         timeInMilliSeconds: Long,
@@ -32,6 +33,7 @@ class NotificationUtils {
             alarmIntent.putExtra("timestamp", timeInMilliSeconds)
             alarmIntent.putExtra("notificationTitle", notificationTitle)
             alarmIntent.putExtra("notificationDescription", notificationDescription)
+            alarmIntent.putExtra("notificationID", notificationID)
 
 
             val calendar = Calendar.getInstance()

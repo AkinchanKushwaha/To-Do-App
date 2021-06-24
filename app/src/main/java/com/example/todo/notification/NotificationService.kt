@@ -14,7 +14,6 @@ import java.util.*
 // TODO: Intent Service has been deprecated. Fix it.
 class NotificationService : IntentService("NotificationService") {
     private lateinit var mNotification: Notification
-    private val mNotificationId: Int = 1000
 
     @SuppressLint("NewApi")
     private fun createChannel() {
@@ -46,6 +45,7 @@ class NotificationService : IntentService("NotificationService") {
 
         const val CHANNEL_ID = "dueDateAndTimeNotificationID"
         const val CHANNEL_NAME = "dueDateAndTimeNotification"
+
     }
 
 
@@ -58,11 +58,14 @@ class NotificationService : IntentService("NotificationService") {
         var timestamp: Long = 0
         var notificationTitle = "notificationTitle"
         var notificationDescription = "notificationDescription"
+        var notificationID = 0
 
         if (intent != null && intent.extras != null) {
+
             timestamp = intent.extras!!.getLong("timestamp")
             notificationTitle = intent.extras!!.getString("notificationTitle")!!
             notificationDescription = intent.extras!!.getString("notificationDescription")!!
+            notificationID = intent.extras!!.getInt("notificationID")
         }
 
 
@@ -129,7 +132,7 @@ class NotificationService : IntentService("NotificationService") {
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             // mNotificationId is a unique int for each notification that you must define
 
-            notificationManager.notify(mNotificationId, mNotification)
+            notificationManager.notify(notificationID, mNotification)
         }
 
 

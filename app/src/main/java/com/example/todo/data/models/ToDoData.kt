@@ -14,6 +14,6 @@ data class ToDoData(
     var priority: Priority,
     var description: String,
     var dueTime: Long,
-    var notificationID: Long
+    var notificationID: Int
 ) : Parcelable
 

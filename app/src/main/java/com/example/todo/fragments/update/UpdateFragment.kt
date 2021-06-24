@@ -68,6 +68,7 @@ class UpdateFragment : Fragment() {
         val title = binding.currentTitleEt.text.toString()
         val description = binding.currentDescriptionEt.text.toString()
         val getPriority = binding.currentPrioritiesSpinner.selectedItem.toString()
+        val notificationId = args.currentItem.notificationID
 
         val validation = mSharedViewModel.verifyData(title, description)
 
@@ -79,9 +80,16 @@ class UpdateFragment : Fragment() {
                 description,
                 // TODO make a validation function for updated date and time.
                 mCurrentDueDateAndTime,
-                args.currentItem.notificationID
+                notificationId
             )
             mTodoViewModel.updateData(updatedItem)
+            mSharedViewModel.scheduleNotification(
+                notificationId,
+                title,
+                description,
+                requireActivity()
+            )
+
             Toast.makeText(requireContext(), "Successfully updated!", Toast.LENGTH_SHORT).show()
             // Navigate back to list fragment after data is updated
             findNavController().navigate(R.id.action_updateFragment_to_listFragment)

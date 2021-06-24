@@ -1,5 +1,6 @@
 package com.example.todo.fragments
 
+import android.app.Activity
 import android.app.Application
 import android.text.TextUtils
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.todo.R
 import com.example.todo.data.models.Priority
 import com.example.todo.data.models.ToDoData
+import com.example.todo.notification.NotificationUtils
 import java.util.*
 
 class SharedViewModel(application: Application) : AndroidViewModel(application) {
@@ -91,6 +93,22 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         val mTimeMinute = calendar[Calendar.MINUTE]
 
         return "$mDay/$mMonth/$mYear, $mTimeHour:$mTimeMinute"
+    }
+
+    fun scheduleNotification(
+        notificationID: Int,
+        notificationTitle: String,
+        notificationDescription: String,
+        activity: Activity,
+    ) {
+        //TODO: Show Notification after 5 seconds. For test purposes only
+        NotificationUtils().setNotification(
+            notificationID,
+            notificationTitle,
+            notificationDescription,
+            Calendar.getInstance().timeInMillis + 5000,
+            activity
+        )
     }
 
 

@@ -13,7 +13,6 @@ import com.example.todo.data.models.ToDoData
 import com.example.todo.data.viewModel.TodoViewModel
 import com.example.todo.databinding.FragmentAddBinding
 import com.example.todo.fragments.SharedViewModel
-import com.example.todo.notification.NotificationUtils
 import java.util.*
 
 class AddFragment : Fragment() {
@@ -63,6 +62,7 @@ class AddFragment : Fragment() {
         val mTitle = binding.titleEt.text.toString()
         val mPriority = binding.prioritiesSpinner.selectedItem.toString()
         val mDescription = binding.descriptionEt.text.toString()
+        val mNotificationID: Int = getNotificationId()
 
         val validation = mSharedViewModel.verifyData(mTitle, mDescription)
         val validationOfDateAndTime = mSharedViewModel.verifyDateAndTime(mDueTimeAndDate)
@@ -76,14 +76,18 @@ class AddFragment : Fragment() {
                     mSharedViewModel.parsePriority(mPriority),
                     mDescription,
                     mDueTimeAndDate,
-                    getNotificationId()
+                    mNotificationID
                 )
-
+            Toast.makeText(requireContext(), mNotificationID.toString(), Toast.LENGTH_SHORT).show()
             mTodoViewModel.insertData(newData)
-            scheduleNotification(mTitle, mDescription)
+            mSharedViewModel.scheduleNotification(
+                mNotificationID,
+                mTitle,
+                mDescription,
+                requireActivity()
+            )
 
 
-            Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
         } else {
             if (!validation) {
@@ -127,20 +131,12 @@ class AddFragment : Fragment() {
     }
 
 
-    private fun getNotificationId(): Long {
+    private fun getNotificationId(): Int {
         // TODO: Look for other ways to generate ID
-        return Calendar.getInstance().timeInMillis
+        return (Calendar.getInstance().timeInMillis / 1000).toInt()
+
     }
 
-    private fun scheduleNotification(notificationTitle: String, notificationDescription: String) {
-        //TODO: Show Notification after 5 seconds. For test purposes only
-        NotificationUtils().setNotification(
-            notificationTitle,
-            notificationDescription,
-            Calendar.getInstance().timeInMillis + 5000,
-            requireActivity()
-        )
-    }
 
     override fun onDestroy() {
         super.onDestroy()
