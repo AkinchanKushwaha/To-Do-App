@@ -13,6 +13,7 @@ import com.example.todo.data.models.ToDoData
 import com.example.todo.data.viewModel.TodoViewModel
 import com.example.todo.databinding.FragmentAddBinding
 import com.example.todo.fragments.SharedViewModel
+import com.example.todo.notification.NotificationUtils
 import java.util.*
 
 class AddFragment : Fragment() {
@@ -78,6 +79,9 @@ class AddFragment : Fragment() {
                 )
 
             mTodoViewModel.insertData(newData)
+            scheduleNotification(mTitle, mDescription)
+
+
             Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
         } else {
@@ -119,6 +123,16 @@ class AddFragment : Fragment() {
 
     private fun setupDateAndTime(calendar: Calendar) {
         binding.dueDateAndTimeTv.text = mSharedViewModel.timeInMillisToString(calendar.timeInMillis)
+    }
+
+    private fun scheduleNotification(notificationTitle: String, notificationDescription: String) {
+        //TODO: Show Notification after 5 seconds. For test purposes only
+        NotificationUtils().setNotification(
+            notificationTitle,
+            notificationDescription,
+            Calendar.getInstance().timeInMillis + 5000,
+            requireActivity()
+        )
     }
 
     override fun onDestroy() {

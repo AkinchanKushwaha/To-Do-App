@@ -18,6 +18,8 @@
     <string name="no_data_available">No data available</string>
     <string name="update_current_due_date_and_time">Update current due date and time</string>
     <string name="select_due_date_and_time">Select due date and time.</string>
+    <!--    TODO: Update notification channel description-->
+    <string name="notification_channel_description">notification desciption</string>
 
     <string-array name="priorities">
         <item>High Priority</item>
