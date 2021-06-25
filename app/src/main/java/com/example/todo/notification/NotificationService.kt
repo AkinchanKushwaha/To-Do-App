@@ -15,7 +15,7 @@ import com.example.todo.MainActivity
 import com.example.todo.R
 import java.util.*
 
-// TODO: Intent Service has been deprecated. Fix it.
+
 class NotificationService : JobIntentService() {
     private lateinit var mNotification: Notification
 
