@@ -101,16 +101,16 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         notificationID: Int,
         notificationTitle: String,
         notificationDescription: String,
+        notificationDueDatAndTime: Long,
         activity: Activity,
     ) {
-        //TODO: Show Notification after 5 seconds. For test purposes only
         val mNotificationTitle = "Hello! '$notificationTitle' is due now."
         NotificationUtils().setNotification(
             Constants.NOTIFICATION_ADD,
             notificationID,
             mNotificationTitle,
             notificationDescription,
-            Calendar.getInstance().timeInMillis + 30000,
+            notificationDueDatAndTime,
             activity
         )
     }

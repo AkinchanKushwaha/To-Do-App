@@ -164,6 +164,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
                 deletedItem.notificationID,
                 deletedItem.title,
                 deletedItem.description,
+                deletedItem.dueTime,
                 requireActivity()
             )
         }

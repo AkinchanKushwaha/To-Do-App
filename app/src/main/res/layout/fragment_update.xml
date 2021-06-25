@@ -53,6 +53,8 @@
             android:orientation="horizontal"
             android:paddingStart="24dp"
             android:paddingEnd="24dp"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/current_priorities_spinner">
@@ -64,7 +66,6 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:hint="@string/due_date_and_time"
-                android:textColor="@color/grayAccent"
                 android:textSize="18sp" />
 
             <ImageView
@@ -73,8 +74,6 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="24dp"
-                android:clickable="true"
-                android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/update_current_due_date_and_time"
                 android:src="@drawable/ic_date_and_time" />
         </LinearLayout>

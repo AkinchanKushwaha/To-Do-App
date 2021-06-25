@@ -46,7 +46,7 @@ class ToDoDaoTest {
      */
     @Test
     fun insertTodoItem() = runBlockingTest {
-        val todoItem = ToDoData(1, "title", Priority.LOW, "description", 12341234L, 12341234L)
+        val todoItem = ToDoData(1, "title", Priority.LOW, "description", 12341234L, 1234)
         dao.insertData(todoItem)
 
         val todoList = dao.getAllData().getOrAwaitValue()
@@ -60,7 +60,7 @@ class ToDoDaoTest {
      */
     @Test
     fun deleteTodoItem() = runBlockingTest {
-        val todoItem = ToDoData(1, "title", Priority.LOW, "description", 12341234L, 123412341)
+        val todoItem = ToDoData(1, "title", Priority.LOW, "description", 12341234L, 1234)
         dao.insertData(todoItem)
         dao.deleteItem(todoItem)
 
@@ -74,8 +74,8 @@ class ToDoDaoTest {
      */
     @Test
     fun deleteAllItems() = runBlockingTest {
-        val todoItem1 = ToDoData(1, "title", Priority.LOW, "description", 12341234L, 123412341)
-        val todoItem2 = ToDoData(2, "title", Priority.LOW, "description", 12341234L, 123412341)
+        val todoItem1 = ToDoData(1, "title", Priority.LOW, "description", 12341234L, 1234)
+        val todoItem2 = ToDoData(2, "title", Priority.LOW, "description", 12341234L, 11234)
 
         dao.insertData(todoItem1)
         dao.insertData(todoItem2)
@@ -92,9 +92,9 @@ class ToDoDaoTest {
      */
     @Test
     fun updateItem() = runBlockingTest {
-        val todoItem = ToDoData(1, "title", Priority.LOW, "description", 12341234L, 123412341)
+        val todoItem = ToDoData(1, "title", Priority.LOW, "description", 12341234L, 1243)
         val todoItemUpdated =
-            ToDoData(1, "updatedTitle", Priority.HIGH, "UpdatedDescription", 123411234L, 123412341)
+            ToDoData(1, "updatedTitle", Priority.HIGH, "UpdatedDescription", 123411234L, 1243)
 
         dao.insertData(todoItem)
         dao.updateData(todoItemUpdated)

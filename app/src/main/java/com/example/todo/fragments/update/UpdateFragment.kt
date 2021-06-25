@@ -44,7 +44,7 @@ class UpdateFragment : Fragment() {
         binding.currentPrioritiesSpinner.onItemSelectedListener = mSharedViewModel.listener
         binding.currentDueDateAndTimeTv.text =
             mSharedViewModel.timeInMillisToString(args.currentItem.dueTime)
-        binding.currentDateAndTimePickerIv.setOnClickListener {
+        binding.currentDueDateAndTimeLl.setOnClickListener {
             updateDateTime(args.currentItem.dueTime)
         }
 
@@ -81,7 +81,6 @@ class UpdateFragment : Fragment() {
                 title,
                 mSharedViewModel.parsePriority(getPriority),
                 description,
-                // TODO make a validation function for updated date and time.
                 mCurrentDueDateAndTime,
                 notificationId
             )
@@ -90,6 +89,7 @@ class UpdateFragment : Fragment() {
                 notificationId,
                 title,
                 description,
+                mCurrentDueDateAndTime,
                 requireActivity()
             )
 

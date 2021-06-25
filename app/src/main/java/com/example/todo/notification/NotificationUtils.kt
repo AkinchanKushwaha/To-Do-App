@@ -18,8 +18,6 @@ class NotificationUtils {
         activity: Activity
     ) {
 
-        //------------  alarm settings start  -----------------//
-
         if (timeInMilliSeconds > 0) {
 
 
@@ -30,14 +28,9 @@ class NotificationUtils {
             ) // AlarmReceiver1 = broadcast receiver
 
             alarmIntent.putExtra("reason", reason)
-            alarmIntent.putExtra("timestamp", timeInMilliSeconds)
             alarmIntent.putExtra("notificationTitle", notificationTitle)
             alarmIntent.putExtra("notificationDescription", notificationDescription)
             alarmIntent.putExtra("notificationID", notificationID)
-
-
-            val calendar = Calendar.getInstance()
-            calendar.timeInMillis = timeInMilliSeconds
 
 
             val pendingIntent = PendingIntent.getBroadcast(
@@ -46,10 +39,9 @@ class NotificationUtils {
                 alarmIntent,
                 PendingIntent.FLAG_CANCEL_CURRENT
             )
-            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+            alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMilliSeconds, pendingIntent)
 
         }
-        //------------ end of alarm settings  -----------------//
 
     }
 

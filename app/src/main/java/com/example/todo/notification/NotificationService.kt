@@ -10,11 +10,11 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
+import android.util.Log.d
 import androidx.core.app.JobIntentService
 import com.example.todo.MainActivity
 import com.example.todo.R
 import com.example.todo.utils.Constants
-import java.util.*
 
 
 class NotificationService : JobIntentService() {
@@ -60,6 +60,11 @@ class NotificationService : JobIntentService() {
 
     }
 
+    override fun onDestroy() {
+        d("notification service", "Service stopped")
+        super.onDestroy()
+    }
+
     override fun onHandleWork(intent: Intent) {
         val notificationID: Int
         val notificationManager: NotificationManager =
@@ -81,70 +86,64 @@ class NotificationService : JobIntentService() {
             Constants.NOTIFICATION_ADD -> {
 
 
-                val timestamp = intent.extras!!.getLong("timestamp")
+//                val timestamp = intent.extras!!.getLong("timestamp")
                 mNotificationTitle = intent.extras!!.getString("notificationTitle")!!
                 mNotificationDescription = intent.extras!!.getString("notificationDescription")!!
                 notificationID = intent.extras!!.getInt("notificationID")
 
 
-                if (timestamp > 0) {
-                    val context = this.applicationContext
-                    val notifyIntent = Intent(this, MainActivity::class.java)
+                val context = this.applicationContext
+                val notifyIntent = Intent(this, MainActivity::class.java)
 
 
-                    notifyIntent.putExtra("title", mNotificationTitle)
-                    notifyIntent.putExtra("message", mNotificationDescription)
-                    notifyIntent.putExtra("notification", true)
+                notifyIntent.putExtra("title", mNotificationTitle)
+                notifyIntent.putExtra("message", mNotificationDescription)
+                notifyIntent.putExtra("notification", true)
 
-                    notifyIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-
-                    val calendar = Calendar.getInstance()
-                    calendar.timeInMillis = timestamp
+                notifyIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
 
 
-                    val pendingIntent = PendingIntent.getActivity(
-                        context,
-                        0,
-                        notifyIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                    )
-                    val res = this.resources
+                val pendingIntent = PendingIntent.getActivity(
+                    context,
+                    0,
+                    notifyIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
+                val res = this.resources
 
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
 
-                        mNotification = Notification.Builder(this, CHANNEL_ID)
-                            // Set the intent that will fire when the user taps the notification
-                            .setContentIntent(pendingIntent)
-                            .setSmallIcon(R.drawable.ic__notification)
-                            .setLargeIcon(BitmapFactory.decodeResource(res, R.mipmap.ic_launcher))
-                            .setAutoCancel(true)
-                            .setContentTitle(mNotificationTitle)
-                            .setStyle(
-                                Notification.BigTextStyle()
-                                    .bigText(mNotificationDescription)
-                            )
-                            .setContentText(mNotificationDescription).build()
-                    } else {
+                    mNotification = Notification.Builder(this, CHANNEL_ID)
+                        // Set the intent that will fire when the user taps the notification
+                        .setContentIntent(pendingIntent)
+                        .setSmallIcon(R.drawable.ic__notification)
+                        .setLargeIcon(BitmapFactory.decodeResource(res, R.mipmap.ic_launcher))
+                        .setAutoCancel(true)
+                        .setContentTitle(mNotificationTitle)
+                        .setStyle(
+                            Notification.BigTextStyle()
+                                .bigText(mNotificationDescription)
+                        )
+                        .setContentText(mNotificationDescription).build()
+                } else {
 
-                        mNotification = Notification.Builder(this, "ChannelID")
-                            // Set the intent that will fire when the user taps the notification
-                            .setContentIntent(pendingIntent)
-                            .setSmallIcon(R.drawable.ic__notification)
-                            .setLargeIcon(BitmapFactory.decodeResource(res, R.mipmap.ic_launcher))
-                            .setAutoCancel(true)
-                            .setContentTitle(mNotificationTitle)
-                            .setStyle(
-                                Notification.BigTextStyle()
-                                    .bigText(mNotificationDescription)
-                            )
-                            .setContentText(mNotificationDescription).build()
-
-                    }
-
-                    notificationManager.notify(notificationID, mNotification)
-
+                    mNotification = Notification.Builder(this, "ChannelID")
+                        // Set the intent that will fire when the user taps the notification
+                        .setContentIntent(pendingIntent)
+                        .setSmallIcon(R.drawable.ic__notification)
+                        .setLargeIcon(BitmapFactory.decodeResource(res, R.mipmap.ic_launcher))
+                        .setAutoCancel(true)
+                        .setContentTitle(mNotificationTitle)
+                        .setStyle(
+                            Notification.BigTextStyle()
+                                .bigText(mNotificationDescription)
+                        )
+                        .setContentText(mNotificationDescription).build()
                 }
+
+                notificationManager.notify(notificationID, mNotification)
+
 
             }
             /**

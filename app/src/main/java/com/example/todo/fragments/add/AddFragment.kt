@@ -3,6 +3,7 @@ package com.example.todo.fragments.add
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.util.Log.d
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -38,7 +39,7 @@ class AddFragment : Fragment() {
         setHasOptionsMenu(true)
 
         binding.prioritiesSpinner.onItemSelectedListener = mSharedViewModel.listener
-        binding.dateAndTimePickerIv.setOnClickListener {
+        binding.dueDateAndTimeLl.setOnClickListener {
             pickDateTime()
         }
 
@@ -79,10 +80,12 @@ class AddFragment : Fragment() {
                     mNotificationID
                 )
             mTodoViewModel.insertData(newData)
+            d("Fragment Add", "${Calendar.getInstance().timeInMillis}  $mDueTimeAndDate")
             mSharedViewModel.scheduleNotification(
                 mNotificationID,
                 mTitle,
                 mDescription,
+                mDueTimeAndDate,
                 requireActivity()
             )
 

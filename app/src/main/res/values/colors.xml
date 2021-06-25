@@ -16,4 +16,5 @@
     <color name="lightGray">#e6e6e6</color>
     <color name="grayAccent">#4b4b4b</color>
     <color name="darkGray">#121212</color>
+    <color name="gray">#393939</color>
 </resources>
