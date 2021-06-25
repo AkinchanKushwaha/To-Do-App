@@ -112,6 +112,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes") { _, _ ->
             mTodoViewModel.deleteAll()
+            mShareViewModel.clearAllNotification(requireActivity())
             Toast.makeText(
                 requireContext(),
                 "Successfully Removed Everything!",
@@ -144,17 +145,27 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
                 // Delete Item
                 mTodoViewModel.deleteItem(deletedItem)
                 adapter.notifyDataSetChanged()
+
                 restoreDeletedData(viewHolder.itemView, deletedItem)
+                mShareViewModel.clearNotification(deletedItem.notificationID, requireActivity())
+
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
         itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
+
     private fun restoreDeletedData(view: View, deletedItem: ToDoData) {
         val snackBar = Snackbar.make(view, "Deleted '${deletedItem.title}'", Snackbar.LENGTH_LONG)
         snackBar.setAction("Undo") {
             mTodoViewModel.insertData(deletedItem)
+            mShareViewModel.scheduleNotification(
+                deletedItem.notificationID,
+                deletedItem.title,
+                deletedItem.description,
+                requireActivity()
+            )
         }
         snackBar.show()
     }
