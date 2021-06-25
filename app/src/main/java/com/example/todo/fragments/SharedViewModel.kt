@@ -78,10 +78,10 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun verifyDateAndTime(mDueTimeAndDate: Long): Boolean {
-        val currentTime = Calendar.getInstance().timeInMillis / 100
-        val roundedOffDateAndTime = mDueTimeAndDate / 100
+        val currentTime = Calendar.getInstance().timeInMillis / 1000
+        val roundedOffDateAndTime = mDueTimeAndDate / 1000
 
-        return !(mDueTimeAndDate == 0.toLong() || roundedOffDateAndTime == currentTime)
+        return !(mDueTimeAndDate == 0.toLong() || roundedOffDateAndTime == currentTime || roundedOffDateAndTime < currentTime)
     }
 
     fun timeInMillisToString(timeInMillis: Long): String {

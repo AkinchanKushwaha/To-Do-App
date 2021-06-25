@@ -92,8 +92,13 @@ class AddFragment : Fragment() {
             if (!validation) {
                 Toast.makeText(requireContext(), "Please fill out all fields!", Toast.LENGTH_SHORT)
                     .show()
-            } else if (!validationOfDateAndTime) {
-                Toast.makeText(requireContext(), "Please choose due date!", Toast.LENGTH_SHORT)
+            }
+            if (!validationOfDateAndTime) {
+                Toast.makeText(
+                    requireContext(),
+                    "Please choose a valid Date and Time!",
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             }
 

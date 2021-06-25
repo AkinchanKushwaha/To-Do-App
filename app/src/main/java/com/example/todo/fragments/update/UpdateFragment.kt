@@ -70,9 +70,12 @@ class UpdateFragment : Fragment() {
         val getPriority = binding.currentPrioritiesSpinner.selectedItem.toString()
         val notificationId = args.currentItem.notificationID
 
+        // Verify the updated data
         val validation = mSharedViewModel.verifyData(title, description)
+        val dateAndTimeValidation = mSharedViewModel.verifyDateAndTime(mCurrentDueDateAndTime)
 
-        if (validation) {
+        // If data is valid then update it and schedule a notification.
+        if (validation && dateAndTimeValidation) {
             val updatedItem = ToDoData(
                 args.currentItem.id,
                 title,
@@ -91,11 +94,22 @@ class UpdateFragment : Fragment() {
             )
 
             Toast.makeText(requireContext(), "Successfully updated!", Toast.LENGTH_SHORT).show()
+
             // Navigate back to list fragment after data is updated
             findNavController().navigate(R.id.action_updateFragment_to_listFragment)
+
         } else {
-            Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_SHORT)
-                .show()
+            if (!validation) {
+                Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_SHORT)
+                    .show()
+            }
+            if (!dateAndTimeValidation) {
+                Toast.makeText(
+                    requireContext(),
+                    "Please choose a valid Date and Time.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 
