@@ -22,7 +22,6 @@ class NotificationService : JobIntentService() {
     @SuppressLint("NewApi")
     private fun createChannel() {
 
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
             // Create the NotificationChannel, but only on API 26+ because
@@ -56,9 +55,6 @@ class NotificationService : JobIntentService() {
         const val CHANNEL_NAME = "dueDateAndTimeNotification"
 
     }
-
-    private fun onHandleIntent(intent: Intent?) {}
-
 
     override fun onHandleWork(intent: Intent) {
 
@@ -111,7 +107,7 @@ class NotificationService : JobIntentService() {
                 mNotification = Notification.Builder(this, CHANNEL_ID)
                     // Set the intent that will fire when the user taps the notification
                     .setContentIntent(pendingIntent)
-                    .setSmallIcon(R.drawable.ic_launcher_foreground)
+                    .setSmallIcon(R.drawable.ic__notification)
                     .setLargeIcon(BitmapFactory.decodeResource(res, R.mipmap.ic_launcher))
                     .setAutoCancel(true)
                     .setContentTitle(notificationTitle)
@@ -125,7 +121,7 @@ class NotificationService : JobIntentService() {
                 mNotification = Notification.Builder(this, "ChannelID")
                     // Set the intent that will fire when the user taps the notification
                     .setContentIntent(pendingIntent)
-                    .setSmallIcon(R.drawable.ic_launcher_foreground)
+                    .setSmallIcon(R.drawable.ic__notification)
                     .setLargeIcon(BitmapFactory.decodeResource(res, R.mipmap.ic_launcher))
                     .setAutoCancel(true)
                     .setContentTitle(notificationTitle)
@@ -139,7 +135,6 @@ class NotificationService : JobIntentService() {
 
             val notificationManager: NotificationManager =
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            // mNotificationId is a unique int for each notification that you must define
 
             notificationManager.notify(notificationID, mNotification)
         }

@@ -15,6 +15,7 @@ import com.example.todo.data.models.ToDoData
 import com.example.todo.notification.NotificationUtils
 import java.util.*
 
+
 class SharedViewModel(application: Application) : AndroidViewModel(application) {
 
     val emptyDatabase: MutableLiveData<Boolean> = MutableLiveData(false)
@@ -102,11 +103,12 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         activity: Activity,
     ) {
         //TODO: Show Notification after 5 seconds. For test purposes only
+        val mNotificationTitle = "Hello! '$notificationTitle' is due now."
         NotificationUtils().setNotification(
             notificationID,
-            notificationTitle,
+            mNotificationTitle,
             notificationDescription,
-            Calendar.getInstance().timeInMillis + 5000,
+            Calendar.getInstance().timeInMillis + 10000,
             activity
         )
     }

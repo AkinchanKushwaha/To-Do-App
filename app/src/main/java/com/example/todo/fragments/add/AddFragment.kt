@@ -78,7 +78,6 @@ class AddFragment : Fragment() {
                     mDueTimeAndDate,
                     mNotificationID
                 )
-            Toast.makeText(requireContext(), mNotificationID.toString(), Toast.LENGTH_SHORT).show()
             mTodoViewModel.insertData(newData)
             mSharedViewModel.scheduleNotification(
                 mNotificationID,
