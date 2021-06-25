@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.todo">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -25,6 +27,7 @@
 
         <service
             android:name=".notification.NotificationService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
             android:enabled="true" />
     </application>
 

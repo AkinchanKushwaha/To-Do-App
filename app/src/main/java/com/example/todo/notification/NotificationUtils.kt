@@ -9,7 +9,6 @@ import java.util.*
 
 class NotificationUtils {
 
-
     fun setNotification(
         notificationID: Int,
         notificationTitle: String,

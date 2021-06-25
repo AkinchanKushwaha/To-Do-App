@@ -1,18 +1,22 @@
 package com.example.todo.notification
 
 import android.annotation.SuppressLint
-import android.app.*
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
+import androidx.core.app.JobIntentService
 import com.example.todo.MainActivity
 import com.example.todo.R
 import java.util.*
 
 // TODO: Intent Service has been deprecated. Fix it.
-class NotificationService : IntentService("NotificationService") {
+class NotificationService : JobIntentService() {
     private lateinit var mNotification: Notification
 
     @SuppressLint("NewApi")
@@ -41,15 +45,22 @@ class NotificationService : IntentService("NotificationService") {
 
     }
 
+
     companion object {
+
+        fun enqueueWork(context: Context, intent: Intent) {
+            enqueueWork(context, NotificationService::class.java, 1, intent)
+        }
 
         const val CHANNEL_ID = "dueDateAndTimeNotificationID"
         const val CHANNEL_NAME = "dueDateAndTimeNotification"
 
     }
 
+    private fun onHandleIntent(intent: Intent?) {}
 
-    override fun onHandleIntent(intent: Intent?) {
+
+    override fun onHandleWork(intent: Intent) {
 
         //Create Channel
         createChannel()
@@ -60,15 +71,13 @@ class NotificationService : IntentService("NotificationService") {
         var notificationDescription = "notificationDescription"
         var notificationID = 0
 
-        if (intent != null && intent.extras != null) {
+        if (intent.extras != null) {
 
             timestamp = intent.extras!!.getLong("timestamp")
             notificationTitle = intent.extras!!.getString("notificationTitle")!!
             notificationDescription = intent.extras!!.getString("notificationDescription")!!
             notificationID = intent.extras!!.getInt("notificationID")
         }
-
-
 
 
         if (timestamp > 0) {
@@ -134,7 +143,6 @@ class NotificationService : IntentService("NotificationService") {
 
             notificationManager.notify(notificationID, mNotification)
         }
-
 
     }
 }

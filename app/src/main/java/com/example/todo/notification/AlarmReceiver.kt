@@ -18,7 +18,7 @@ class AlarmReceiver : BroadcastReceiver() {
             intent.getStringExtra("notificationDescription")
         )
 
-        context.startService(service)
+        NotificationService.enqueueWork(context, service)
     }
 
 }
