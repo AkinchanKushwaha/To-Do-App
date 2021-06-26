@@ -161,6 +161,8 @@ class NotificationService : JobIntentService() {
              */
             Constants.NOTIFICATION_CANCEL_ALL -> {
                 notificationManager.cancelAll()
+                stopSelf()
+                onDestroy()
             }
 
         }
