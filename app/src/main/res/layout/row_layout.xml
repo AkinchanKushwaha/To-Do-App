@@ -61,6 +61,7 @@
                 android:longToText="@{todoData}"
                 android:maxLength="300"
                 android:maxLines="10"
+                android:ifTimeIsLessThenCurrentTime="@{todoData.dueTime}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

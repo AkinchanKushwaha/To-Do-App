@@ -86,5 +86,14 @@ class BindingAdapters {
 
             view.text = "$mDay/$mMonth/$mYear, $mTimeHour:$mTimeMinute $mAMorPM"
         }
+
+        @BindingAdapter("android:ifTimeIsLessThenCurrentTime")
+        @JvmStatic
+        fun ifTimeIsLessThenCurrentTime(view: View, dueDateAndTime: Long) {
+            val currentTime = Calendar.getInstance().timeInMillis
+            if (dueDateAndTime < currentTime) {
+                view.visibility = View.GONE
+            }
+        }
     }
 }
