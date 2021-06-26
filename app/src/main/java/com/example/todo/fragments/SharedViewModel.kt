@@ -12,8 +12,8 @@ import androidx.lifecycle.MutableLiveData
 import com.example.todo.R
 import com.example.todo.data.models.Priority
 import com.example.todo.data.models.ToDoData
-import com.example.todo.notification.NotificationUtils
 import com.example.todo.utils.Constants
+import com.example.todo.utils.NotificationUtils
 import java.util.*
 
 
@@ -106,12 +106,14 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         activity: Activity,
     ) {
         val mNotificationTitle = "Hello! '$notificationTitle' is due now."
+        val mNotificationDescription = "Description of your work: \n$notificationDescription"
+        val delay = notificationDueDatAndTime - Calendar.getInstance().timeInMillis
         NotificationUtils().setNotification(
             Constants.NOTIFICATION_ADD,
             notificationID,
             mNotificationTitle,
-            notificationDescription,
-            notificationDueDatAndTime,
+            mNotificationDescription,
+            System.currentTimeMillis() + delay,
             activity
         )
     }

@@ -105,7 +105,7 @@ class NotificationService : JobIntentService() {
 
                 val pendingIntent = PendingIntent.getActivity(
                     context,
-                    0,
+                    notificationID,
                     notifyIntent,
                     PendingIntent.FLAG_UPDATE_CURRENT
                 )

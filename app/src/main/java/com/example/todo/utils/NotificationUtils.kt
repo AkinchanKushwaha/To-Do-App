@@ -1,9 +1,10 @@
-package com.example.todo.notification
+package com.example.todo.utils
 
 import android.app.Activity
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Intent
+import com.example.todo.notification.AlarmReceiver
 import java.util.*
 
 
@@ -35,11 +36,15 @@ class NotificationUtils {
 
             val pendingIntent = PendingIntent.getBroadcast(
                 activity,
-                0,
+                notificationID,
                 alarmIntent,
                 PendingIntent.FLAG_CANCEL_CURRENT
             )
-            alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMilliSeconds, pendingIntent)
+            alarmManager.setExactAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP,
+                timeInMilliSeconds,
+                pendingIntent
+            )
 
         }
 
@@ -59,7 +64,7 @@ class NotificationUtils {
 
         val pendingIntent = PendingIntent.getBroadcast(
             activity,
-            0,
+            notificationID,
             alarmIntent,
             PendingIntent.FLAG_CANCEL_CURRENT
         )
