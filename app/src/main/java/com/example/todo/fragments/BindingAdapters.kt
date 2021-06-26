@@ -82,7 +82,9 @@ class BindingAdapters {
             val mDay = calendar[Calendar.DAY_OF_MONTH]
             val mTimeHour = calendar[Calendar.HOUR]
             val mTimeMinute = calendar[Calendar.MINUTE]
-            view.text = "$mDay/$mMonth/$mYear, $mTimeHour:$mTimeMinute"
+            val mAMorPM = if (calendar[Calendar.AM_PM] == Calendar.AM) "AM" else "PM"
+
+            view.text = "$mDay/$mMonth/$mYear, $mTimeHour:$mTimeMinute $mAMorPM"
         }
     }
 }

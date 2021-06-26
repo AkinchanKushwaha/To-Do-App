@@ -93,8 +93,9 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         val mDay = calendar[Calendar.DAY_OF_MONTH]
         val mTimeHour = calendar[Calendar.HOUR]
         val mTimeMinute = calendar[Calendar.MINUTE]
+        val mAMorPM = if (calendar[Calendar.AM_PM] == Calendar.AM) "AM" else "PM"
 
-        return "$mDay/$mMonth/$mYear, $mTimeHour:$mTimeMinute"
+        return "$mDay/$mMonth/$mYear, $mTimeHour:$mTimeMinute $mAMorPM"
     }
 
     fun scheduleNotification(

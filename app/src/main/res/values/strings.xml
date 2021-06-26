@@ -21,6 +21,8 @@
     <!--    TODO: Update notification channel description-->
     <string name="notification_channel_description">notification desciption</string>
 
+    <string name="timeAndDate">%1$s/%2$s/%3$s, %4$s:%5$s %6$s</string>
+
     <string-array name="priorities">
         <item>High Priority</item>
         <item>Medium Priority</item>
