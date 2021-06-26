@@ -117,7 +117,7 @@ class NotificationService : JobIntentService() {
                     mNotification = Notification.Builder(this, CHANNEL_ID)
                         // Set the intent that will fire when the user taps the notification
                         .setContentIntent(pendingIntent)
-                        .setSmallIcon(R.drawable.ic__notification)
+                        .setSmallIcon(R.drawable.ic_notification)
                         .setLargeIcon(BitmapFactory.decodeResource(res, R.mipmap.ic_launcher))
                         .setAutoCancel(true)
                         .setContentTitle(mNotificationTitle)
@@ -131,7 +131,7 @@ class NotificationService : JobIntentService() {
                     mNotification = Notification.Builder(this, "ChannelID")
                         // Set the intent that will fire when the user taps the notification
                         .setContentIntent(pendingIntent)
-                        .setSmallIcon(R.drawable.ic__notification)
+                        .setSmallIcon(R.drawable.ic_notification)
                         .setLargeIcon(BitmapFactory.decodeResource(res, R.mipmap.ic_launcher))
                         .setAutoCancel(true)
                         .setContentTitle(mNotificationTitle)

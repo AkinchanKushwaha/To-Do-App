@@ -106,7 +106,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         activity: Activity,
     ) {
         val mNotificationTitle = "Hello! '$notificationTitle' is due now."
-        val mNotificationDescription = "Description of your work: \n$notificationDescription"
+        val mNotificationDescription = "Description: \n$notificationDescription"
         val delay = notificationDueDatAndTime - Calendar.getInstance().timeInMillis
         NotificationUtils().setNotification(
             Constants.NOTIFICATION_ADD,
