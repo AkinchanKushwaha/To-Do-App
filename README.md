@@ -6,11 +6,11 @@ todo app is an app that emphasises simplicity and ease of use. Whether you want 
 
 # Screenshots
 <p float="center">
-  <img src="/screenshots/image1.jpeg" width="180" />
-  <img src="/screenshots/image2.jpeg" width="180" />
-  <img src="/screenshots/image3.jpeg" width="180" />
-  <img src="/screenshots/image4.jpeg" width="180" />
-  <img src="/screenshots/image5.jpeg" width="180" />
+  <img src="/screenshots/image1.jpeg" width="150" />
+  <img src="/screenshots/image2.jpeg" width="150" />
+  <img src="/screenshots/image3.jpeg" width="150" />
+  <img src="/screenshots/image4.jpeg" width="150" />
+  <img src="/screenshots/image5.jpeg" width="150" />
 </p>
 
 ## Installation
