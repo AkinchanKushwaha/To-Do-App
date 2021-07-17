@@ -1,5 +1,7 @@
 package com.example.todo.fragments
 
+import android.annotation.SuppressLint
+import android.graphics.Paint
 import android.view.View
 import android.widget.TextView
 import androidx.cardview.widget.CardView
@@ -71,6 +73,7 @@ class BindingAdapters {
             }
         }
 
+        @SuppressLint("SetTextI18n")
         @BindingAdapter("android:longToText")
         @JvmStatic
         fun longToText(view: TextView, currentItem: ToDoData) {
@@ -89,10 +92,10 @@ class BindingAdapters {
 
         @BindingAdapter("android:ifTimeIsLessThenCurrentTime")
         @JvmStatic
-        fun ifTimeIsLessThenCurrentTime(view: View, dueDateAndTime: Long) {
+        fun ifTimeIsLessThenCurrentTime(view: TextView, dueDateAndTime: Long) {
             val currentTime = Calendar.getInstance().timeInMillis
             if (dueDateAndTime < currentTime) {
-                view.visibility = View.GONE
+                view.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
             }
         }
     }
