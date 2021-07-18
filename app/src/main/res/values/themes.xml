@@ -19,6 +19,18 @@
         <item name="android:background">@drawable/item_background_day</item>
     </style>
 
+
+    <!--    Floating Action button-->
+    <style name="FloatingActionButton" parent="@style/Widget.MaterialComponents.FloatingActionButton">
+        <item name="materialThemeOverlay">@style/MyFabOverlay</item>
+    </style>
+
+    <style name="MyFabOverlay">
+        <item name="colorSecondary">@color/colorPrimaryVariant</item>
+        <!-- color used by the icon -->
+        <item name="colorOnSecondary">@color/white</item>
+    </style>
+
     <!--............................TEXT STYLE............................-->
     <style name="text_normal">
         <item name="android:textColor">@color/grayAccent</item>
